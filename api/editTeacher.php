@@ -15,4 +15,4 @@ function edit_teacher() {
         return "修改成功";
     }
 }
-print_r(edit_teacher());
+echo json_encode(edit_teacher());

@@ -20,4 +20,4 @@ function add_teacher() {
     }
     return "添加失败";
 }
-print_r(add_teacher());
+echo json_encode(add_teacher());

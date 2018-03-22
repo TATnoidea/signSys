@@ -27,4 +27,4 @@ function add_student() {
         return "添加成功";
     }
 }
-print_r(add_student());
+echo json_encode(add_student());

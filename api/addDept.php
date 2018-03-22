@@ -22,4 +22,4 @@ function add_dept() {
     }
     return "添加失败";
 }
-print_r(add_dept());
+echo json_encode(add_dept());

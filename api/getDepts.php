@@ -6,4 +6,4 @@
  * Time: 14:28
  */
 require_once '../functions.php';
-print_r(sign_fetch_all("select * from depts"));
+echo json_encode(sign_fetch_all("select * from depts"));

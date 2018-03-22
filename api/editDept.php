@@ -1,6 +1,6 @@
 <?php
 require_once '../functions.php';
-function edit_teacher() {
+function edit_dept() {
     if(empty($_REQUEST['d_name'])) {
         $mes = "请填写系的名称";
         return $mes;
@@ -11,4 +11,4 @@ function edit_teacher() {
         return "修改成功";
     }
 }
-print_r(edit_teacher());
+echo json_encode(edit_dept());

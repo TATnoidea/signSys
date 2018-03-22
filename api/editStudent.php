@@ -24,4 +24,4 @@ function edit_student() {
     }
     return "修改失败";
 }
-print_r(edit_student());
+echo json_encode(edit_student());
