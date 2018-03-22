@@ -6,4 +6,4 @@
  * Time: 14:11
  */
 require_once '../functions.php';
-echo json_encode(sign_fetch_all("select * from teachers"));
+echo json_encode(sign_fetch_all("select * from students"));
