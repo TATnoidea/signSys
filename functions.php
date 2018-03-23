@@ -26,6 +26,21 @@ function sign_fetch_all ($sql) {
     return $result;
 }
 
+function sign_fetch_one($sql) {
+    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);
+    if (!$conn) {
+        exit('连接失败');
+    }
+
+    $query = mysqli_query($conn, $sql);
+    if (!$query) {
+        // 查询失败
+        return false;
+    }
+    $row = mysqli_fetch_assoc($query);
+    return $row;
+}
+
 function sign_execute ($sql) {
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);
     if (!$conn) {
