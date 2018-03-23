@@ -6,6 +6,7 @@
  * Time: 15:46
  */
 require_once "../functions.php";
+header('Access-Control-Allow-Origin: *');
 function getCoursesByDeptId() {
     if(empty($_REQUEST['dept_id'])) {
         return "请输入系的id";

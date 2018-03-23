@@ -1,5 +1,6 @@
 <?php
 require_once '../functions.php';
+header('Access-Control-Allow-Origin: *');
 function add_teacher() {
     if(empty($_REQUEST['t_id'])) {
         $mes = "请填写教师编号";

@@ -6,6 +6,7 @@
  * Time: 16:08
  */
 require_once '../functions.php';
+header('Access-Control-Allow-Origin: *');
 function getStudentsByCoursesId() {
     if(empty($_REQUEST['c_id'])) {
         return '无法获取课程id';

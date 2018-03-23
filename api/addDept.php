@@ -6,6 +6,7 @@
  * Time: 14:29
  */
 require_once '../functions.php';
+header('Access-Control-Allow-Origin: *');
 function add_dept() {
     if(empty($_REQUEST['d_id'])) {
         $mes = "请填写系的编号";

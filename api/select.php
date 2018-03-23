@@ -6,6 +6,7 @@
  * Time: 15:58
  */
 require_once '../functions.php';
+header('Access-Control-Allow-Origin: *');
 function select() {
     if(empty($_REQUEST['s_id'])) {
         return "学生id为空，无法选课";

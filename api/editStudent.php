@@ -1,5 +1,6 @@
 <?php
 require_once '../functions.php';
+header('Access-Control-Allow-Origin: *');
 function edit_student() {
     if(empty($_REQUEST['s_name'])) {
         $mes = "请填写学生姓名";

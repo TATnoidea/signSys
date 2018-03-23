@@ -1,5 +1,6 @@
 <?php
 require_once '../functions.php';
+header('Access-Control-Allow-Origin: *');
 function add_student() {
     if(empty($_REQUEST['s_no'])) {
         $mes = "请填写学生编号";

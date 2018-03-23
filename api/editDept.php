@@ -1,5 +1,6 @@
 <?php
 require_once '../functions.php';
+header('Access-Control-Allow-Origin: *');
 function edit_dept() {
     if(empty($_REQUEST['d_name'])) {
         $mes = "请填写系的名称";
