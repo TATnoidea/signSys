@@ -54,6 +54,11 @@ $(function() {
         renderData('getDepts', "#dept", "tpl-dept")
     })
 })
+//删除课程
+$(function() {
+    delData( ".delCourse", "delCourse", {c_id: $(this).data('id') }, 'getCourses', '#course', 'tpl-course')
+})
+
 //渲染列表
 function renderData(link,selector,tpllink) {
     $.ajax({
@@ -77,5 +82,21 @@ function renderData(link,selector,tpllink) {
                 })
             }
         }
+    })
+}
+
+//删除
+function delData(ele, delUrl,data,link,selector,tplLink) {
+    $(selector).on('click', ele,function() {
+        $.ajax({
+            url: url + delUrl,
+            data: data,
+            type: 'get',
+            dataType: 'json',
+            success: function(response) {
+                alert(response)
+                renderData(link, selector, tplLink)
+            }
+        })
     })
 }

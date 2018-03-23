@@ -9,7 +9,7 @@ require_once '../functions.php';
 header('Access-Control-Allow-Origin: *');
 function del_course() {
     if(empty($_REQUEST['c_id'])) {
-        return "无法获取管理员id";
+        return "无法获取课程id";
     }
     $sql = 'delete from courses where c_id ='.$_REQUEST['c_id'];
     if(sign_execute($sql)) {
@@ -19,4 +19,4 @@ function del_course() {
     }
 };
 
-json_encode(del_course());
+echo json_encode(del_course());
