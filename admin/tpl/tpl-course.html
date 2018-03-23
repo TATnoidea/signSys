@@ -1,10 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<button id="addCourse" class="btn btn-primary" style="position: absolute;right: 50px; top: 130px;">添加课程</button>
+<table class="table">
+    <caption>课程列表</caption>
+    <thead>
+    <tr class="row">
+        <th class="col-md-1">id</th>
+        <th class="col-md-2">课程名</th>
+        <th class="col-md-2">系</th>
+        <th class="col-md-2">上课时间</th>
+        <th class="col-md-1">周几</th>
+        <th class="col-md-2">教师</th>
+        <th class="col-md-2">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% for(var i = 0; i < data.length; i++) { %>
+    <tr class="row">
+        <th scope="row" class="col-md-1"><%= data[i].c_id %></th>
+        <td class="col-md-2"><%= data[i].c_name%></td>
+        <td class="col-md-2"><%= data[i].d_name %></td>
+        <td class="col-md-2"><%= data[i].time_name%></td>
+        <td class="col-md-1"><%= data[i].week%></td>
+        <td class="col-md-2"><%= data[i].t_name%></td>
+        <td class="col-md-2">
+            <button class="btn btn-warning editCourse" data-id={{ data[i].c_id }}>修改</button>
+            <button class="btn btn-danger delCourse" data-id={{ data[i].c_id }}>删除</button>
+        </td>
+    </tr>
+    <% } %>
+    </tbody>
+</table>

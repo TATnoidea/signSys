@@ -1,0 +1,15 @@
+.header {
+  height: 80px;
+  background-color: #409EFF;
+  line-height: 80px;
+  border-bottom: 1px solid #ccc;
+}
+.header p {
+  font-size: 16px;
+  color: #fff;
+  float: right;
+  margin-right: 50px;
+}
+.header p #admin_name {
+  font-weight: bold;
+}

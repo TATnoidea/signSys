@@ -1,10 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<button id="addStudent" class="btn btn-primary" style="position: absolute;right: 50px; top: 130px;">添加学生</button>
+<table class="table">
+    <caption>学生列表</caption>
+    <thead>
+    <tr class="row">
+        <th class="col-md-1">学号</th>
+        <th class="col-md-2">姓名</th>
+        <th class="col-md-2">性别</th>
+        <th class="col-md-2">班级</th>
+        <th class="col-md-2">系</th>
+        <th class="col-md-3">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% for(var i = 0; i < data.length; i++) { %>
+    <tr class="row">
+        <th scope="row" class="col-md-1"><%= data[i].s_no %></th>
+        <td class="col-md-2"><%= data[i].s_name%></td>
+        <td class="col-md-2"><%= data[i].s_sex == 1 ? "男" : "女"  %></td>
+        <td class="col-md-2"><%= data[i].s_class%></td>
+        <td class="col-md-2"><%= data[i].d_name%></td>
+        <td class="col-md-3">
+            <button class="btn btn-warning editStu" data-id={{ data[i].s_no }}>修改</button>
+            <button class="btn btn-danger delStu" data-id={{ data[i].s_no }}>删除</button>
+        </td>
+    </tr>
+    <% } %>
+    </tbody>
+</table>

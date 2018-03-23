@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./style/reset.css">
+    <link rel="stylesheet" href="./style/login.css">
+    <link rel="stylesheet" href="../libs/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+    <div id="full" class="container-fluid" style="background-color: #409EFF">
+        <div class="login_box">
+            <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                <input id="admin_name" type="text" class="form-control" placeholder="请在此输入用户名..." aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                <input id="admin_pwd" type="text" class="form-control" placeholder="请在此输入密码..." aria-describedby="basic-addon1">
+            </div>
+            <button id="login_btn" class="btn btn-default center-block" type="submit">登录</button>
+        </div>
+        <div class="alert alert-danger login_warn" role="alert">...</div>
+    </div>
+    <script src="../libs/jquery/jquery.min.js"></script>
+    <script src="../libs/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../libs/jquery.cookie/jquery.cookie.js"></script>
+    <script>
+        //设置屏幕全屏
+        $(function() {
+            $('#full').css('height', window.innerHeight);
+            $(window).resize(function() {
+                $('#full').css('height', window.innerHeight);
+            })
+        });
+        //登录
+        $(function() {
+            $("#login_btn").on("click", function() {
+                $.ajax({
+                    url: "http://localhost/signsys/api/login.php",
+                    data: {
+                        admin_name: $("#admin_name").val(),
+                        admin_pwd: $("#admin_pwd").val()
+                    },
+                    type: "post",
+                    success: function(response) {
+                        var data = JSON.parse(response);
+                        if(typeof data != 'object') {
+                            $('#admin_pwd').val(null);
+                            $('.login_warn').stop(true).fadeIn().text(data).delay(1000).fadeOut()
+                        } else {
+                            console.log(data)
+                            var admin_id = data.id;
+                            $.cookie('admin_id', admin_id);
+                            window.location = 'index.html';
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+</body>
+</html>

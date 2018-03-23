@@ -1,10 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<table class="table">
+    <button id="addDept" class="btn btn-primary" style="position: absolute;right: 50px; top: 130px;">添加系</button>
+    <caption>管理员列表</caption>
+    <thead>
+    <tr class="row">
+        <th class="col-md-2">id</th>
+        <th class="col-md-6">系名称</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% for(var i = 0; i < data.length; i++) { %>
+    <tr class="row">
+        <th scope="row" class="col-md-2"><%= data[i].d_id %></th>
+        <td class="col-md-6"><%= data[i].d_name%></td>
+        <td class="col-md-4">
+            <button class="btn btn-warning editDept" data-id={{ data[i].d_id }}>修改</button>
+            <button class="btn btn-danger delDept" data-id={{ data[i].d_id }}>删除</button>
+        </td>
+    </tr>
+    <% } %>
+    </tbody>
+</table>

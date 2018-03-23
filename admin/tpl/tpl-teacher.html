@@ -1,10 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<button id="addTeacher" class="btn btn-primary" style="position: absolute;right: 50px; top: 130px;">添加教师</button>
+<table class="table">
+    <caption>教师列表</caption>
+    <thead>
+    <tr class="row">
+        <th class="col-md-2">id</th>
+        <th class="col-md-4">教师名称</th>
+        <th class="col-md-3">系</th>
+        <th class="col-md-3">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% for(var i = 0; i < data.length; i++) { %>
+    <tr class="row">
+        <th scope="row" class="col-md-2"><%= data[i].t_id %></th>
+        <td class="col-md-4"><%= data[i].t_name%></td>
+        <td class="col-md-3"><%= data[i].d_name %></td>
+        <td class="col-md-3">
+            <button class="btn btn-warning editTeacher" data-id={{ data[i].t_id }}>修改</button>
+            <button class="btn btn-danger delTeacher" data-id={{ data[i].t_id }}>删除</button>
+        </td>
+    </tr>
+    <% } %>
+    </tbody>
+</table>

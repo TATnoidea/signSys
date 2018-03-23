@@ -3,20 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="./style/reset.css">
+    <link rel="stylesheet" href="./style/index.css">
+    <link rel="stylesheet" href="../libs/bootstrap/css/bootstrap.min.css">
 </head>
 <body>
-<script>
-    $.ajax({
-        url: "../api/getStudents.php",
-        dataType: "json",
-        type: "get",
-        success: function(data) {
-            for(var i = 0; i < data.length; i ++) {
-                console.log(data[i])
-            }
-        }
-    })
-</script>
+    <header class="header">
+        <p>您好！管理员：<span id="admin_name"></span></p>
+    </header>
+    <div class="container-fluid">
+        <div class="row">
+            <ul class="nav nav-tabs manage_title" role="tablist">
+                <li class="active"><a id="btn_admin" href="#admin" aria-controls="home" data-toggle="tab">管理员管理</a></li>
+                <li><a id="btn_teacher" href="#teacher" aria-controls="profile" data-toggle="tab">教师管理</a></li>
+                <li><a id="btn_student" href="#student" aria-controls="messages" data-toggle="tab">学生管理</a></li>
+                <li><a id="btn_course" href="#course" aria-controls="settings" data-toggle="tab">课程管理</a></li>
+                <li><a id="btn_dept" href="#dept" aria-controls="settings" data-toggle="tab">系管理</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="admin"></div>
+                <div class="tab-pane" id="teacher"></div>
+                <div class="tab-pane" id="student"></div>
+                <div class="tab-pane" id="course"></div>
+                <div class="tab-pane" id="dept"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="../libs/jquery/jquery.min.js"></script>
+    <script src="../libs/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../libs/jquery.cookie/jquery.cookie.js"></script>
+    <script src="../libs/art-template/template-web.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>

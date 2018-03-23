@@ -1,16 +1,22 @@
 <table class="table">
+    <button id="addAdmin" class="btn btn-primary" style="position: absolute;right: 50px; top: 130px;">添加管理员</button>
     <caption>管理员列表</caption>
     <thead>
-    <tr>
-        <th>id</th>
-        <th>管理员名称</th>
+    <tr class="row">
+        <th class="col-md-2">id</th>
+        <th class="col-md-6">管理员名称</th>
+        <th>操作</th>
     </tr>
     </thead>
     <tbody>
     <% for(var i = 0; i < data.length; i++) { %>
-    <tr>
-        <th scope="row"><%= data[i].id %></th>
-        <td><%= data[i].adminname%></td>
+    <tr class="row">
+        <th scope="row" class="col-md-2"><%= data[i].id %></th>
+        <td class="col-md-6"><%= data[i].adminname%></td>
+        <td class="col-md-4">
+            <button class="btn btn-warning editAdmin" data-id={{ data[i].id }}>修改</button>
+            <button class="btn btn-danger delAdmin" data-id={{ data[i].id }}>删除</button>
+        </td>
     </tr>
     <% } %>
     </tbody>
