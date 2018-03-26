@@ -19,4 +19,4 @@ function del_student() {
     }
 };
 
-json_encode(del_student());
+echo json_encode(del_student());

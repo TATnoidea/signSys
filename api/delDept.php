@@ -20,4 +20,4 @@ function del_dept() {
     }
 };
 
-json_encode(del_dept());
+echo json_encode(del_dept());

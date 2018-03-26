@@ -19,4 +19,4 @@ function del_admin() {
     }
 };
 
-json_encode(del_admin());
+echo json_encode(del_admin());

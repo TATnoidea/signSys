@@ -54,11 +54,95 @@ $(function() {
         renderData('getDepts', "#dept", "tpl-dept")
     })
 })
+
+//删除管理员 
+$(function() {
+    $("#admin").on('click', ".delAdmin",function() {
+        console.log("i")
+        $.ajax({
+            url: url + "delAdmin",
+            data: {
+                admin_id: $(this).data('id')
+            },
+            type: 'post',
+            dataType: 'json',
+            success: function(response) {
+                alert(response)
+                renderData('getAdmins', '#admin', 'tpl-admin')
+            }
+        })
+    })
+})
+//删除老师
+$(function() {
+    $("#teacher").on('click', ".delTeacher",function() {
+        console.log("i")
+        $.ajax({
+            url: url + "delTeacher",
+            data: {
+                t_id: $(this).data('id')
+            },
+            type: 'post',
+            dataType: 'json',
+            success: function(response) {
+                alert(response)
+                renderData('getTeachers', '#teacher', 'tpl-teacher')
+            }
+        })
+    })
+})
+//删除学生
+$(function() {
+    $("#student").on('click', ".delStu",function() {
+        console.log("i")
+        $.ajax({
+            url: url + "delStudent",
+            data: {
+                s_id: $(this).data('id')
+            },
+            type: 'post',
+            dataType: 'json',
+            success: function(response) {
+                alert(response)
+                renderData('getStudents', '#student', 'tpl-student')
+            }
+        })
+    })
+})
 //删除课程
 $(function() {
-    delData( ".delCourse", "delCourse", {c_id: $(this).data('id') }, 'getCourses', '#course', 'tpl-course')
+    $("#course").on('click', ".delCourse",function() {
+        $.ajax({
+            url: url + "delCourse",
+            data: {
+                c_id: $(this).data('id')
+            },
+            type: 'post',
+            dataType: 'json',
+            success: function(response) {
+                alert(response)
+                renderData('getCourses', "#course", "tpl-course")
+            }
+        })
+    })
 })
-
+//删除系
+$(function() {
+    $("#dept").on('click', ".delDept",function() {
+        $.ajax({
+            url: url + "delDept",
+            data: {
+                dept_id: $(this).data('id')
+            },
+            type: 'post',
+            dataType: 'json',
+            success: function(response) {
+                alert(response)
+                renderData('getDepts', "#dept", "tpl-dept")
+            }
+        })
+    })
+})
 //渲染列表
 function renderData(link,selector,tpllink) {
     $.ajax({
@@ -85,18 +169,4 @@ function renderData(link,selector,tpllink) {
     })
 }
 
-//删除
-function delData(ele, delUrl,data,link,selector,tplLink) {
-    $(selector).on('click', ele,function() {
-        $.ajax({
-            url: url + delUrl,
-            data: data,
-            type: 'get',
-            dataType: 'json',
-            success: function(response) {
-                alert(response)
-                renderData(link, selector, tplLink)
-            }
-        })
-    })
-}
+

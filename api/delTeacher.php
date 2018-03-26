@@ -11,7 +11,7 @@ function del_teacher() {
     if(empty($_REQUEST['t_id'])) {
         return "无法获取教师id";
     }
-    $sql = 'delete from  where id ='.$_REQUEST['_id'];
+    $sql = 'delete from teachers where t_id ='.$_REQUEST['t_id'];
     if(sign_execute($sql)) {
         return '删除成功';
     } else {
@@ -19,4 +19,4 @@ function del_teacher() {
     }
 };
 
-json_encode(del_teacher());
+echo json_encode(del_teacher());
