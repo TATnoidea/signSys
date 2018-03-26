@@ -64,6 +64,7 @@ $(function () {
 $(function () {
     renderAdd("#admin", "#addAdmin", "tpl-addAdmin", function (response) {
         $("#admin").html(response)
+        bindReset(['#admin_name', '#admin_pwd'])
     })
 })
 //渲染添加系
@@ -181,26 +182,26 @@ $(function () {
                     str += "<li data-id='" + response[i].d_id + "'><a herf='#'>" + response[i].d_name + "</li>"
                 }
                 $("#addT_dept").html(str)
-                .on("click", "li", function() {
-                    var id = $(this).data("id")
-                    $("#at_dept")
-                    .data("id", id)
-                    .text($(this).find('a').text())
-                })
-                
+                    .on("click", "li", function () {
+                        var id = $(this).data("id")
+                        $("#at_dept")
+                            .data("id", id)
+                            .text($(this).find('a').text())
+                    })
+
             }
         })
     })
 })
 //渲染添加学生
-$(function() {
-    renderAdd("#student", "#addStudent", "tpl-addStudent",function(response) {
+$(function () {
+    renderAdd("#student", "#addStudent", "tpl-addStudent", function (response) {
         $("#student").html(response)
-        $("#addS_sex").on("click", "li", function() {
+        $("#addS_sex").on("click", "li", function () {
             var id = $(this).data("id")
             $("#as_sex")
-            .data("id", id)
-            .text($(this).find('a').text())
+                .data("id", id)
+                .text($(this).find('a').text())
         })
         $.ajax({
             url: url + "getDepts",
@@ -211,13 +212,13 @@ $(function() {
                     str += "<li data-id='" + response[i].d_id + "'><a herf='#'>" + response[i].d_name + "</li>"
                 }
                 $("#addS_dept").html(str)
-                .on("click", "li", function() {
-                    var id = $(this).data("id")
-                    $("#as_dept")
-                    .data("id", id)
-                    .text($(this).find('a').text())
-                })
-                
+                    .on("click", "li", function () {
+                        var id = $(this).data("id")
+                        $("#as_dept")
+                            .data("id", id)
+                            .text($(this).find('a').text())
+                    })
+
             }
         })
     })
@@ -353,9 +354,16 @@ function renderAdd(selector, btn, url, cb) {
 }
 
 //按钮重置功能
-(function() {
-    $(".tab-content").on("click", ".resetInfo", function() {
-        $(this).preventDefault();
-        console.log(1)
+function bindReset(arrInp, arrSel) {
+    $(".resetInfo").on("click", function (e) {
+        e.preventDefault();
+        var arrInp = arrInp || null
+        var arrSel = arrSel || null
+        for (var i = 0; i < arrInp.length; i++) {
+            $(arrInp[i]).val("")
+        }
+        for (var i = 0; i < arrSel.length; i++) {
+            $(arrSel[i]).text("请选择").data("id", null)
+        }
     })
-})
+}
