@@ -312,6 +312,7 @@ $(function () {
         })
     })
 })
+//============================================================================
 //渲染列表
 function renderData(link, selector, tpllink) {
     $.ajax({
@@ -350,3 +351,11 @@ function renderAdd(selector, btn, url, cb) {
         })
     })
 }
+
+//按钮重置功能
+(function() {
+    $(".tab-content").on("click", ".resetInfo", function() {
+        $(this).preventDefault();
+        console.log(1)
+    })
+})
