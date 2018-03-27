@@ -15,7 +15,7 @@ $(function () {
                 alert('管理员id错误，请重新登录');
                 window.location = 'login.html'
             } else {
-                $('#admin_name').text(data.adminname)
+                $('#index_admin_name').text(data.adminname)
             }
         }
     })
@@ -60,17 +60,28 @@ $(function () {
     })
 })
 //添加功能=========================================================================
+//渲染添加页面====================================================================
 //渲染添加管理员
 $(function () {
     renderAdd("#admin", "#addAdmin", "tpl-addAdmin", function (response) {
         $("#admin").html(response)
         bindReset(['#admin_name', '#admin_pwd'])
+        $(".saveBtn").on("click", function(e) {
+            e.preventDefault()
+            addCallBack(['#admin_name', '#admin_pwd'], "addAdmin", renderData('getAdmins', '#admin', 'tpl-admin'))
+        })
     })
 })
 //渲染添加系
 $(function () {
     renderAdd("#dept", "#addDept", "tpl-addDept", function (response) {
         $("#dept").html(response)
+        bindReset(['#d_name'])
+        $(".saveBtn").on("click", function(e) {
+            console.log(e)
+            e.preventDefault()
+            addCallBack(['#d_name'], "addDept", renderData('getDepts', "#dept", "tpl-dept"))
+        })
     })
 })
 //渲染添加课程
@@ -158,11 +169,13 @@ $(function () {
                                                             .data("id", id)
                                                             .text($(this).find('a').text())
                                                     })
+                                                    bindReset(['#c_name'], ['#ac_week', '#ac_time','#ac_dept', '#ac_teacher'])
                                             }
                                         })
                                     }
                                 })
                             })
+                            bindReset(['#c_name'], ['#ac_week', '#ac_time','#ac_dept'])
                     }
                 })
             }
@@ -188,7 +201,7 @@ $(function () {
                             .data("id", id)
                             .text($(this).find('a').text())
                     })
-
+                    bindReset(['#t_name'], ['#at_dept'])
             }
         })
     })
@@ -218,11 +231,12 @@ $(function () {
                             .data("id", id)
                             .text($(this).find('a').text())
                     })
-
+                    bindReset(['#s_name', '#s_class'],  ['#as_sex', '#as_dept'])
             }
         })
     })
 })
+
 //删除功能==============================================================================
 
 //删除管理员 
@@ -357,13 +371,36 @@ function renderAdd(selector, btn, url, cb) {
 function bindReset(arrInp, arrSel) {
     $(".resetInfo").on("click", function (e) {
         e.preventDefault();
-        var arrInp = arrInp || null
-        var arrSel = arrSel || null
-        for (var i = 0; i < arrInp.length; i++) {
-            $(arrInp[i]).val("")
+        var arrInput = arrInp || []
+        var arrSelect = arrSel || []
+        
+        for (var i = 0; i < arrInput.length; i++) {
+            $(arrInput[i]).val("")
         }
-        for (var i = 0; i < arrSel.length; i++) {
-            $(arrSel[i]).text("请选择").data("id", null)
+        for (var i = 0; i < arrSelect.length; i++) {
+            $(arrSelect[i]).html("请选择<span class='caret'></span>").data("id", null)
+        }
+    })
+}
+
+//按钮提交
+function addCallBack(arrInput, api, cb) {
+    var data = {}
+    var arrInp = arrInput || []
+    for(var i = 0; i < arrInp.length; i++) {
+        var id = $(arrInp[i]).get(0).id
+        data[id] = $(arrInp[i]).val()
+    }
+    console.log(data)
+    $.ajax({
+        url: url + api,
+        type: "post",
+        dataType: "json",
+        data: data,
+        success: function(response) {
+            console.log(response)
+            alert(response)
+            cb
         }
     })
 }

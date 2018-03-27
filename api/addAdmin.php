@@ -16,8 +16,7 @@ function add_admin() {
         $mes = "请填写管理员密码";
         return $mes;
     }
-    $sql = "insert into admins (admin_name, password) values ('".$_REQUEST['admin_name']."','".$_REQUEST['admin_pwd']."')";
-    echo $sql;
+    $sql = "insert into admins (adminname, password) values ('".$_REQUEST['admin_name']."','".$_REQUEST['admin_pwd']."')";
     if(sign_execute($sql)){
         return "添加成功";
     }
