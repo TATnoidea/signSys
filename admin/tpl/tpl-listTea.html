@@ -1,14 +1,14 @@
 <label class="col-sm-2 control-label">
   老师</label>
 <div class="btn-group">
-  <button id="ac_teacher" type="button" class="btn btn-default dropdown-toggle col-md-push-2" data-toggle="dropdown">
+  <button id="c_teacher_id" type="button" class="btn btn-default dropdown-toggle col-md-push-2" data-toggle="dropdown">
     请选择
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" id="addC_tea">
     <% for(var i = 0; i < data.length; i++) {%>
-      <li>
-        <a href="#" data-id={{data[i].t_id}}>
+      <li data-id={{data[i].t_id}}>
+        <a href="#" }>
           <%= data[i].t_name %>
         </a>
       </li>

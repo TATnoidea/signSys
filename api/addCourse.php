@@ -2,10 +2,6 @@
 require_once '../functions.php';
 header('Access-Control-Allow-Origin: *');
 function add_course() {
-    if(empty($_REQUEST['c_id'])) {
-        $mes = "请填写课程编号";
-        return $mes;
-    }
     if(empty($_REQUEST['c_name'])) {
         $mes = "请填写课程名";
         return $mes;
@@ -26,8 +22,8 @@ function add_course() {
         $mes = "请选择老师";
         return $mes;
     }
-    $sql = "insert into courses (c_id, c_name, c_dept_id, c_time_id, c_week_id, c_teacher_id) values ('".$_REQUEST['c_id']."','".$_REQUEST['c_name']."','".$_REQUEST['c_dept_id']."','".$_REQUEST['c_time_id']."','".$_REQUEST['c_week_id']."','".$_REQUEST['c_teacher_id']."')";
-    echo $sql;
+    $sql = "insert into courses (c_name, c_dept_id, c_time_id, c_week_id, c_teacher_id) values ('".$_REQUEST['c_name']."','".$_REQUEST['c_dept_id']."','".$_REQUEST['c_time_id']."','".$_REQUEST['c_week_id']."','".$_REQUEST['c_teacher_id']."')";
+//    echo $sql;
     if(sign_execute($sql)){
         return "添加成功";
     }

@@ -23,7 +23,7 @@
         <td class="col-md-2"><%= data[i].t_name%></td>
         <td class="col-md-2">
             <button class="btn btn-warning editCourse" data-id={{ data[i].c_id }}>修改</button>
-            <button class="btn btn-danger delCourse" data-id={{ data[i].c_id }}>删除</button>
+            <button class="btn btn-danger delCourse" data-id={{ data[i].c_id }} data-toggle="modal" data-target="#myModal">删除</button>
         </td>
     </tr>
     <% } %>

@@ -65,11 +65,13 @@ $(function () {
 $(function () {
     renderAdd("#admin", "#addAdmin", "tpl-addAdmin", function (response) {
         $("#admin").html(response)
-        bindReset(['#admin_name', '#admin_pwd'])
-        $(".saveBtn").on("click", function(e) {
+        $(".saveBtn").on("click", function (e) {
             e.preventDefault()
-            addCallBack(['#admin_name', '#admin_pwd'], "addAdmin", renderData('getAdmins', '#admin', 'tpl-admin'))
+            addCallBack(['#admin_name', '#admin_pwd'], [], "addAdmin", function () {
+                renderData('getAdmins', '#admin', 'tpl-admin')
+            })
         })
+        bindReset(['#admin_name', '#admin_pwd'])
     })
 })
 //渲染添加系
@@ -77,10 +79,11 @@ $(function () {
     renderAdd("#dept", "#addDept", "tpl-addDept", function (response) {
         $("#dept").html(response)
         bindReset(['#d_name'])
-        $(".saveBtn").on("click", function(e) {
-            console.log(e)
+        $(".saveBtn").on("click", function (e) {
             e.preventDefault()
-            addCallBack(['#d_name'], "addDept", renderData('getDepts', "#dept", "tpl-dept"))
+            addCallBack(['#d_name'], [], "addDept", function () {
+                renderData('getDepts', "#dept", "tpl-dept")
+            })
         })
     })
 })
@@ -106,7 +109,7 @@ $(function () {
                         $("#addC_week").html(str)
                             .on('click', 'li', function () {
                                 var id = $(this).data("id")
-                                $("#ac_week")
+                                $("#c_week_id")
                                     .data("id", id)
                                     .text($(this).find('a').text())
                             })
@@ -124,7 +127,7 @@ $(function () {
                         $("#addC_time").html(str)
                             .on('click', 'li', function () {
                                 var id = $(this).data("id")
-                                $("#ac_time")
+                                $("#c_time_id")
                                     .data("id", id)
                                     .text($(this).find('a').text())
                             })
@@ -142,7 +145,7 @@ $(function () {
                         $("#addC_dept").html(str)
                             .on("click", "li", function () {
                                 var id = $(this).data("id")
-                                $("#ac_dept")
+                                $("#c_dept_id")
                                     .data("id", id)
                                     .text($(this).find('a').text())
                                 //获取教师模板
@@ -165,17 +168,26 @@ $(function () {
                                                 $("#listTea").html(html)
                                                     .on('click', 'li', function () {
                                                         var id = $(this).data("id")
-                                                        $("#ac_teacher")
+                                                        console.log(id)
+                                                        console.log($(this))
+                                                        $("#c_teacher_id")
                                                             .data("id", id)
                                                             .text($(this).find('a').text())
                                                     })
-                                                    bindReset(['#c_name'], ['#ac_week', '#ac_time','#ac_dept', '#ac_teacher'])
+                                                bindReset(['#c_name'], ['#c_week_id', '#c_time_id', '#c_dept_id', '#c_teacher_id'])
+                                                $(".saveBtn").on("click", function (e) {
+                                                    e.preventDefault()
+                                                    addCallBack(['#c_name'], ["#c_dept_id", "#c_time_id", "#c_week_id", "#c_teacher_id"], "addCourse", function () {
+                                                        renderData('getCourses', "#course", "tpl-course")
+                                                    })
+                                                })
                                             }
                                         })
                                     }
                                 })
                             })
-                            bindReset(['#c_name'], ['#ac_week', '#ac_time','#ac_dept'])
+                        bindReset(['#c_name'], ['#c_week_id', '#c_time_id', '#c_dept_id'])
+                        
                     }
                 })
             }
@@ -197,11 +209,17 @@ $(function () {
                 $("#addT_dept").html(str)
                     .on("click", "li", function () {
                         var id = $(this).data("id")
-                        $("#at_dept")
+                        $("#t_dept_id")
                             .data("id", id)
                             .text($(this).find('a').text())
                     })
-                    bindReset(['#t_name'], ['#at_dept'])
+                bindReset(['#t_name'], ['#t_dept_id'])
+                $(".saveBtn").on("click", function (e) {
+                    e.preventDefault()
+                    addCallBack(['#t_name'], ['#t_dept_id'], "addTeacher", function () {
+                        renderData('getTeachers', "#teacher", "tpl-teacher")
+                    })
+                })
             }
         })
     })
@@ -212,7 +230,7 @@ $(function () {
         $("#student").html(response)
         $("#addS_sex").on("click", "li", function () {
             var id = $(this).data("id")
-            $("#as_sex")
+            $("#s_sex")
                 .data("id", id)
                 .text($(this).find('a').text())
         })
@@ -227,11 +245,17 @@ $(function () {
                 $("#addS_dept").html(str)
                     .on("click", "li", function () {
                         var id = $(this).data("id")
-                        $("#as_dept")
+                        $("#s_dept_id")
                             .data("id", id)
                             .text($(this).find('a').text())
                     })
-                    bindReset(['#s_name', '#s_class'],  ['#as_sex', '#as_dept'])
+                bindReset(['#s_name', '#s_class'], ['#s_sex', '#s_dept_id'])
+                $(".saveBtn").on("click", function (e) {
+                    e.preventDefault()
+                    addCallBack(['#s_name', '#s_class'], ['#s_dept_id', '#s_sex'], "addStudent", function () {
+                        renderData('getStudents', "#student", "tpl-student")
+                    })
+                })
             }
         })
     })
@@ -244,15 +268,17 @@ $(function () {
     $("#admin").on('click', ".delAdmin", function () {
         console.log("i")
         $.ajax({
-            url: url + "delAdmin",
+            url: url + "delAdmin", //链接地址
             data: {
-                admin_id: $(this).data('id')
+                admin_id: $(this).data('id') //数据
             },
-            type: 'post',
-            dataType: 'json',
-            success: function (response) {
-                alert(response)
-                renderData('getAdmins', '#admin', 'tpl-admin')
+            type: 'post', //请求类型
+            dataType: 'json', //返回数据类型
+            success: function (response) { //请求成功以后的回调函数
+                $("#modal-info").text(response) //模态框提示文本
+                $('btn_confirm').on("click", //给确认按钮绑定点击事件，点击后重新渲染页面
+                    renderData('getAdmins', '#admin', 'tpl-admin')
+                )
             }
         })
     })
@@ -269,8 +295,10 @@ $(function () {
             type: 'post',
             dataType: 'json',
             success: function (response) {
-                alert(response)
-                renderData('getTeachers', '#teacher', 'tpl-teacher')
+                $("#modal-info").text(response)
+                $('btn_confirm').on("click",
+                    renderData('getTeachers', '#teacher', 'tpl-teacher')
+                )
             }
         })
     })
@@ -287,8 +315,9 @@ $(function () {
             type: 'post',
             dataType: 'json',
             success: function (response) {
-                alert(response)
-                renderData('getStudents', '#student', 'tpl-student')
+                $("#modal-info").text(response)
+                $('btn_confirm').on("click",
+                    renderData('getStudents', '#student', 'tpl-student'))
             }
         })
     })
@@ -304,8 +333,8 @@ $(function () {
             type: 'post',
             dataType: 'json',
             success: function (response) {
-                alert(response)
-                renderData('getCourses', "#course", "tpl-course")
+                $("#modal-info").text(response)
+                $('btn_confirm').on("click", renderData('getCourses', "#course", "tpl-course"))
             }
         })
     })
@@ -321,8 +350,8 @@ $(function () {
             type: 'post',
             dataType: 'json',
             success: function (response) {
-                alert(response)
-                renderData('getDepts', "#dept", "tpl-dept")
+                $("#modal-info").text(response)
+                $('btn_confirm').on("click", renderData('getDepts', "#dept", "tpl-dept"))
             }
         })
     })
@@ -344,6 +373,7 @@ function renderData(link, selector, tpllink) {
                     type: 'get',
                     data: data,
                     success: function (response) {
+                        console.log(data)
                         var render = template.compile(response);
                         var html = render({
                             data: data
@@ -373,7 +403,7 @@ function bindReset(arrInp, arrSel) {
         e.preventDefault();
         var arrInput = arrInp || []
         var arrSelect = arrSel || []
-        
+
         for (var i = 0; i < arrInput.length; i++) {
             $(arrInput[i]).val("")
         }
@@ -384,12 +414,18 @@ function bindReset(arrInp, arrSel) {
 }
 
 //按钮提交
-function addCallBack(arrInput, api, cb) {
+function addCallBack(arrInput, arrSelect, api, cb) {
     var data = {}
     var arrInp = arrInput || []
-    for(var i = 0; i < arrInp.length; i++) {
+    var arrSel = arrSelect || []
+    for (var i = 0; i < arrInp.length; i++) {
         var id = $(arrInp[i]).get(0).id
         data[id] = $(arrInp[i]).val()
+    }
+    for (var i = 0; i < arrSel.length; i++) {
+        var id = $(arrSel[i]).get(0).id
+        console.log($(arrSel[i]).data('id'))
+        data[id] = $(arrSel[i]).data('id')
     }
     console.log(data)
     $.ajax({
@@ -397,10 +433,10 @@ function addCallBack(arrInput, api, cb) {
         type: "post",
         dataType: "json",
         data: data,
-        success: function(response) {
-            console.log(response)
-            alert(response)
-            cb
+        success: function (response) {
+            // console.log(response)
+            $("#modal-info").text(response)
+            cb()
         }
     })
 }

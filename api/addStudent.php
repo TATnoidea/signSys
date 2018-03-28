@@ -2,10 +2,6 @@
 require_once '../functions.php';
 header('Access-Control-Allow-Origin: *');
 function add_student() {
-    if(empty($_REQUEST['s_no'])) {
-        $mes = "请填写学生编号";
-        return $mes;
-    }
     if(empty($_REQUEST['s_name'])) {
         $mes = "请填写学生姓名";
         return $mes;
@@ -22,10 +18,11 @@ function add_student() {
         $mes = "请选择学生所属的系";
         return $mes;
     }
-    $sql = "insert into students (s_no, s_name, s_class, s_sex, s_dept_id) values ('".$_REQUEST['s_no']."','".$_REQUEST['s_name']."','".$_REQUEST['s_class']."','".$_REQUEST['s_sex']."','".$_REQUEST['s_dept_id']."')";
-    echo $sql;
+    $sql = "insert into students (s_name, s_class, s_sex, s_dept_id) values ('".$_REQUEST['s_name']."','".$_REQUEST['s_class']."','".$_REQUEST['s_sex']."','".$_REQUEST['s_dept_id']."')";
+//    echo $sql;
     if(sign_execute($sql)){
         return "添加成功";
     }
+    return "添加失败";
 }
 echo json_encode(add_student());

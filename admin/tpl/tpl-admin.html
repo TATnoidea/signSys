@@ -15,7 +15,7 @@
         <td class="col-md-6"><%= data[i].adminname%></td>
         <td class="col-md-4">
             <button class="btn btn-warning editAdmin" data-id={{ data[i].id }}>修改</button>
-            <button class="btn btn-danger delAdmin" data-id={{ data[i].id }}>删除</button>
+            <button class="btn btn-danger delAdmin" data-id={{ data[i].id }} data-toggle="modal" data-target="#myModal">删除</button>
         </td>
     </tr>
     <% } %>
