@@ -10,8 +10,8 @@ function edit_teacher() {
         $mes = "请选择教师所属的系";
         return $mes;
     }
-    $sql = "update teachers set t_name = '".$_REQUEST['t_name']."',t_dept_id = '".$_REQUEST['t_dept_id']."' where t_id = '".$_REQUEST['t_id']."'";
-    echo $sql;
+    $sql = "update teachers set t_name = '".$_REQUEST['t_name']."',t_dept_id = ".$_REQUEST['t_dept_id']." where t_id = ".$_REQUEST['t_id'];
+    // echo $sql;
     if(sign_execute($sql)){
         return "修改成功";
     }

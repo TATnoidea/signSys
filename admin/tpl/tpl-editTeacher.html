@@ -1,0 +1,30 @@
+<form class="form-horizontal container" style="margin-top: 50px;">
+  <div class="form-group">
+    <label for="t_name" class="col-sm-2 control-label">教师名</label>
+    <div class="col-sm-5">
+      <input type="text" class="form-control" id="t_name" placeholder="请在此输入课教师名称..." value={{ data.t_name }}>
+    </div>
+  </div>
+  <div class="from-group">
+    <label class="col-sm-2 control-label">所属系</label>
+    <div class="btn-group">
+
+      <button id="t_dept_id" type="button" class="btn btn-default dropdown-toggle col-md-push-2" data-toggle="dropdown">
+        请选择
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" id="addT_dept">
+        <li>
+          <a href="#">Action</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <br>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button  class="btn btn-primary saveBtn" data-toggle="modal" data-target="#myModal">修改</button>
+      <button class="btn btn-warning resetInfo">重置</button>
+    </div>
+  </div>
+</form>
