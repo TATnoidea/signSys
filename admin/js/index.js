@@ -398,7 +398,7 @@ $(function() {
           },
           dataType: "json",
           success: function(data) {
-            console.log(data);
+            // console.log(data);
             var render = template.compile(response);
             var html = render({
               data: data
@@ -452,6 +452,81 @@ $(function() {
     });
   });
 });
+//学生修改
+$(function() {
+  $("#student").on("click", ".editStu", function() {
+    var id = $(this).data("id")
+    $.ajax({
+      url: tplUrl + "tpl-editStu",
+      dataType: "html",
+      success: function(response) {
+        $.ajax({
+          url: url + "getStudentById",
+          data: {
+            s_id: id
+          },
+          success: function(data) {
+            console.log(data)
+            var render = template.compile(response);
+            var html = render({
+              data: data
+            });
+            $("#student").html(html);
+            $("#addS_sex").on("click", "li", function() {
+              var id = $(this).data("id");
+              $("#s_sex")
+                .data("id", id)
+                .text(
+                  $(this)
+                    .find("a")
+                    .text()
+                );
+            });
+            $.ajax({
+              url: url + "getDepts",
+              dataType: "json",
+              success: function(response) {
+                var str = "";
+                for (let i = 0; i < response.length; i++) {
+                  str +=
+                    "<li data-id='" +
+                    response[i].d_id +
+                    "'><a herf='#'>" +
+                    response[i].d_name +
+                    "</li>";
+                }
+                $("#addS_dept")
+                  .html(str)
+                  .on("click", "li", function() {
+                    var id = $(this).data("id");
+                    $("#s_dept_id")
+                      .data("id", id)
+                      .text(
+                        $(this)
+                          .find("a")
+                          .text()
+                      );
+                  });
+                bindReset(["#s_name", "#s_class"], ["#s_sex", "#s_dept_id"]);
+                $(".saveBtn").on("click", function(e) {
+                  e.preventDefault();
+                  addCallBack(
+                    ["#s_name", "#s_class"],
+                    ["#s_dept_id", "#s_sex"],
+                    "editStudent?s_no=" + id,
+                    function() {
+                      renderData("getStudents", "#student", "tpl-student");
+                    }
+                  );
+                });
+              }
+            });
+          }
+        })
+      }
+    })
+  })
+})
 //删除功能==============================================================================
 
 //删除管理员
