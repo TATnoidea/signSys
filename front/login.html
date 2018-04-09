@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script> -->
+    <link rel="stylesheet" href="style/style.css">
+</head>
+
+<body>
+    <div class="login_box">
+        <label class="login_user">
+            <span>用户名：</span>
+            <input id="user" type="text" placeholder="请在此输入用户名">
+        </label>
+        <label class="login_pwd">
+            <span>密码：</span>
+            <input id="pwd" type="password" placeholder="请在此输入密码">
+        </label>
+        <br>
+        <select name="login_type">
+            <option value="stu">学生用户</option>
+            <option value="teacher">教师用户</option>
+        </select>
+        <br>
+        <button id="login_btn">登录</button>
+    </div>
+    <script src="../libs/jquery/jquery.min.js"></script>
+    <script src="../libs/jquery.cookie/jquery.cookie.js"></script>
+    <script>
+        //设置屏幕全屏
+        $(function () {
+            $('#full').css('height', window.innerHeight);
+            $(window).resize(function () {
+                $('#full').css('height', window.innerHeight);
+            })
+        });
+        $(function () {
+            $("#login_btn").on("click", function () {
+                var user = $("#user").val() || null
+                var pwd = $("#pwd").val() || null
+                if ($("select").val() == "stu") {
+                    // console.log(1)
+                    $.ajax({
+                        url: "http://localhost/signsys/api/loginStu.php",
+                        data: {
+                            user: user,
+                            pwd: pwd
+                        },
+                        dataType: "json",
+                        success: function (data) {
+                            console.log(data + "1")
+                            if (typeof data != 'object') {
+                                $('#pwd').val(null);
+                                alert(data)
+                            } else {
+                                console.log(data)
+                                var stu_id = data.s_no;
+                                $.cookie('stu_id', stu_id);
+                                window.location = 'stuIndex.html';
+                            }
+                        }
+                    })
+                } else {
+                    $.ajax({
+                        url: "http://localhost/signsys/api/loginTea.php",
+                        data: {
+                            user: user,
+                            pwd: pwd
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            console.log(data)
+                            if (typeof data != 'object') {
+                                $('#pwd').val(null);
+                                alert(data)
+                            } else {
+                                console.log(data)
+                                var tea_id = data.t_id;
+                                $.cookie('tea_id', tea_id);
+                                window.location = 'teaIndex.html';
+                            }
+                        }
+                    })
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

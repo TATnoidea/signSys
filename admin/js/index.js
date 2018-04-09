@@ -404,50 +404,49 @@ $(function() {
               data: data
             });
             $("#teacher").html(html);
-               //获取系的下拉列表
-        $.ajax({
-          url: url + "getDepts",
-          dataType: "json",
-          success: function(response) {
-            var str = "";
-            for (let i = 0; i < response.length; i++) {
-              str +=
-                "<li data-id='" +
-                response[i].d_id +
-                "'><a herf='#'>" +
-                response[i].d_name +
-                "</li>";
-            }
-            //点击下拉列表填充内容并获取id
-            $("#addT_dept")
-              .html(str)
-              .on("click", "li", function() {
-                var id = $(this).data("id");
-                $("#t_dept_id")
-                  .data("id", id)
-                  .text(
-                    $(this)
-                      .find("a")
-                      .text()
-                  );
-              });
-            bindReset(["#t_name"], ["#t_dept_id"]);
-            $(".saveBtn").on("click", function(e) {
-              e.preventDefault();
-              addCallBack(
-                ["#t_name"],
-                ["#t_dept_id"],
-                "editTeacher?t_id=" + id,
-                function() {
-                  renderData("getTeachers", "#teacher", "tpl-teacher");
+            //获取系的下拉列表
+            $.ajax({
+              url: url + "getDepts",
+              dataType: "json",
+              success: function(response) {
+                var str = "";
+                for (let i = 0; i < response.length; i++) {
+                  str +=
+                    "<li data-id='" +
+                    response[i].d_id +
+                    "'><a herf='#'>" +
+                    response[i].d_name +
+                    "</li>";
                 }
-              );
+                //点击下拉列表填充内容并获取id
+                $("#addT_dept")
+                  .html(str)
+                  .on("click", "li", function() {
+                    var id = $(this).data("id");
+                    $("#t_dept_id")
+                      .data("id", id)
+                      .text(
+                        $(this)
+                          .find("a")
+                          .text()
+                      );
+                  });
+                bindReset(["#t_name"], ["#t_dept_id"]);
+                $(".saveBtn").on("click", function(e) {
+                  e.preventDefault();
+                  addCallBack(
+                    ["#t_name"],
+                    ["#t_dept_id"],
+                    "editTeacher?t_id=" + id,
+                    function() {
+                      renderData("getTeachers", "#teacher", "tpl-teacher");
+                    }
+                  );
+                });
+              }
             });
           }
         });
-          }
-        });
-     
       }
     });
   });
@@ -455,7 +454,7 @@ $(function() {
 //学生修改
 $(function() {
   $("#student").on("click", ".editStu", function() {
-    var id = $(this).data("id")
+    var id = $(this).data("id");
     $.ajax({
       url: tplUrl + "tpl-editStu",
       dataType: "html",
@@ -466,7 +465,7 @@ $(function() {
             s_id: id
           },
           success: function(data) {
-            console.log(data)
+            console.log(data);
             var render = template.compile(response);
             var html = render({
               data: data
@@ -522,11 +521,180 @@ $(function() {
               }
             });
           }
-        })
+        });
       }
-    })
-  })
-})
+    });
+  });
+});
+//修改课程
+$(function() {
+  $(function() {
+    $("#course").on("click", ".editCourse", function() {
+      $.ajax({
+        url: tplUrl + "tpl-editCourse",
+        dataType: "html",
+        success: function(response) {
+          // console.log(response)
+          $("#course").html(response);
+          //获取周
+          $.ajax({
+            url: url + "getWeeks",
+            dataType: "json",
+            success: function(response) {
+              var str = "";
+              for (let i = 0; i < response.length; i++) {
+                str +=
+                  "<li data-id='" +
+                  response[i].w_id +
+                  "'><a herf='#'>" +
+                  response[i].week +
+                  "</li>";
+              }
+              $("#addC_week")
+                .html(str)
+                .on("click", "li", function() {
+                  var id = $(this).data("id");
+                  $("#c_week_id")
+                    .data("id", id)
+                    .text(
+                      $(this)
+                        .find("a")
+                        .text()
+                    );
+                });
+            }
+          });
+          //获取时间
+          $.ajax({
+            url: url + "getTimes",
+            dataType: "json",
+            success: function(response) {
+              var str = "";
+              for (let i = 0; i < response.length; i++) {
+                str +=
+                  "<li data-id='" +
+                  response[i].time_id +
+                  "'><a herf='#'>" +
+                  response[i].time_name +
+                  "</li>";
+              }
+              $("#addC_time")
+                .html(str)
+                .on("click", "li", function() {
+                  var id = $(this).data("id");
+                  $("#c_time_id")
+                    .data("id", id)
+                    .text(
+                      $(this)
+                        .find("a")
+                        .text()
+                    );
+                });
+            }
+          });
+          //获取系
+          $.ajax({
+            url: url + "getDepts",
+            dataType: "json",
+            success: function(response) {
+              var str = "";
+              for (let i = 0; i < response.length; i++) {
+                str +=
+                  "<li data-id='" +
+                  response[i].d_id +
+                  "'><a herf='#'>" +
+                  response[i].d_name +
+                  "</li>";
+              }
+              $("#addC_dept")
+                .html(str)
+                .on("click", "li", function() {
+                  var id = $(this).data("id");
+                  $("#c_dept_id")
+                    .data("id", id)
+                    .text(
+                      $(this)
+                        .find("a")
+                        .text()
+                    );
+                  //获取教师模板
+                  $.ajax({
+                    url: tplUrl + "tpl-listTea",
+                    dataType: "html",
+                    success: function(response) {
+                      //获取教师数据
+                      $.ajax({
+                        url: url + "getTeachersByDeptId",
+                        dataType: "json",
+                        data: {
+                          d_id: id
+                        },
+                        success: function(data) {
+                          var render = template.compile(response);
+                          var html = render({
+                            data: data
+                          });
+                          $("#listTea")
+                            .html(html)
+                            .on("click", "li", function() {
+                              var id = $(this).data("id");
+                              console.log(id);
+                              console.log($(this));
+                              $("#c_teacher_id")
+                                .data("id", id)
+                                .text(
+                                  $(this)
+                                    .find("a")
+                                    .text()
+                                );
+                            });
+                          bindReset(
+                            ["#c_name"],
+                            [
+                              "#c_week_id",
+                              "#c_time_id",
+                              "#c_dept_id",
+                              "#c_teacher_id"
+                            ]
+                          );
+                          $(".saveBtn").on("click", function(e) {
+                            e.preventDefault();
+                            addCallBack(
+                              ["#c_name"],
+                              [
+                                "#c_dept_id",
+                                "#c_time_id",
+                                "#c_week_id",
+                                "#c_teacher_id"
+                              ],
+                              "editCourse",
+                              function() {
+                                renderData(
+                                  "getCourses",
+                                  "#course",
+                                  "tpl-course"
+                                );
+                              }
+                            );
+                          });
+                        }
+                      });
+                    }
+                  });
+                });
+              bindReset(
+                ["#c_name"],
+                ["#c_week_id", "#c_time_id", "#c_dept_id"]
+              );
+            }
+          });
+        }
+      });
+    });
+  });
+});
+//修改系
+$(function() {});
 //删除功能==============================================================================
 
 //删除管理员

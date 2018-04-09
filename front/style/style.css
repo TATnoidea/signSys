@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: #409EFF repeat;
+}
+.login_box {
+  height: 160px;
+  width: 240px;
+  background-color: #fff;
+  border: 1px solid #333;
+  margin: 200px auto;
+  padding: 10px;
+  text-align: center;
+}
+.login_box span {
+  display: inline-block;
+  width: 70px;
+}
+
+.login_box select {
+  margin-top: 20px;
+}
+.login_box button {
+  background-color: #409EFF;
+  border: 0;
+  color: #fff;
+  height: 20px;
+  width: 40px;
+  margin-top: 10px;
+  cursor: pointer;
+}

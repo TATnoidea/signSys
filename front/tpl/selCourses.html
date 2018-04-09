@@ -1,0 +1,8 @@
+
+  <% for(var i = 0; i < data.length; i++) { %>
+    <div class="class_item">
+      <p>课程名：<span><%= data[i].c_name %></span></p>
+      <p>上课时间：<span> <%= data[i].week%> <%= data[i].time_name%></span></p>
+      <button class="select_this" data-id={{ data[i].c_id }}>选课</button>
+    </div>
+  <% } %>

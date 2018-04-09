@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.stuHeader {
+  height: 80px;
+  background-color: #409EFF;
+  padding: 20px;
+}
+.sel_class {
+  position: absolute;
+  top: 40px;
+  right: 20px;
+}
+.class_item:nth-child(n+1) {
+  font-size: 12px;
+  border-bottom: 1px solid #666;
+  padding: 5px;
+  position: relative;
+}
+.class_item .select_this,
+.class_item .sign_this {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+}
+.back {
+  position: absolute;
+  top: 90px;
+  left: 20px;
+  display: none;
+}
