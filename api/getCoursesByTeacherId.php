@@ -11,7 +11,7 @@ function getCoursesByTeacherId() {
     if(empty($_REQUEST['teacher_id'])) {
         return "请输入教师的id";
     }
-    $sql = "select * from courses where c_teacher_id =".$_REQUEST['teacher_id'];
+    $sql = "select * from courses inner join week ,times where c_teacher_id =".$_REQUEST['teacher_id'].' and c_time_id = time_id and c_week_id=w_id';
     return sign_fetch_all($sql);
 }
 

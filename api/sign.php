@@ -14,7 +14,11 @@ function sign() {
     $mes = "获取课程失败";
     return $mes;
   }
-  $sql = "insert into signs (stu_id, cou_id, sign_time) values (".$_REQUEST['s_no'].", ".$_REQUEST['cou_id'].", "."'".$_REQUEST['sign_time']."')";
+  if(empty($_REQUEST['date'])) {
+    $mes = "获取日期失败";
+    return $mes;
+  }
+  $sql = "insert into signs (stu_id, cou_id, sign_time, date) values (".$_REQUEST['s_no'].", ".$_REQUEST['cou_id'].", '".$_REQUEST['sign_time'].", '".$_REQUEST['date']."'"."')";
   if(sign_execute($sql)){
     return "签到成功";
 }

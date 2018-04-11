@@ -188,6 +188,7 @@ $(function() {
         var limitMin = limitTime.split(":")[1];
         var h = time.split(":")[0];
         var min = time.split(":")[1];
+        var clander = formateDate(date.toString().split(" ").slice(1, 3))
         if (h > limitH) {
           alert("迟到了，无法签到");
         } else if (min > limitMin) {
@@ -210,7 +211,8 @@ $(function() {
                 data: {
                   s_no: s_no,
                   cou_id: c_id,
-                  sign_time: time
+                  sign_time: time,
+                  date: clander
                 },
                 dataType: "json",
                 success: function(response) {
@@ -255,4 +257,17 @@ function clearClass(allData, selData) {
     }
   }
   return allData;
+}
+
+function formateDate(arr) {
+  switch(arr[0]) {
+    case "Jan": 
+    arr[0] = "1月"
+    break;
+    case "Apr":
+    arr[0] = "4月"
+    break;
+  }
+  arr[1] += "日"
+  return arr.join("")
 }

@@ -1,16 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
 </head>
+
 <body>
-    <script src="../libs/jquery/jquery.min.js"></script>
-    <script src="../libs/jquery.cookie/jquery.cookie.js"></script>
-    <script>
-      
-    </script>
+  <link rel="stylesheet" href="style/teaIndex.css">
+  <header class="teaHeader">
+    <p>教师名：
+      <span class="tea_name"></span>
+    </p>
+    <p>系：
+      <span class="tea_dept"></span>
+    </p>
+  </header>
+  <ul class="content">
+
+  </ul>
+  <script type="html/art-template" id="tpl-class">
+    <% for (var i = 0; i < data.length; i++) {%>
+      <li class="class_item">
+        <p>课程名：
+          <span>
+            <%= data[i].c_name %>
+          </span>
+        </p>
+        <p>上课时间：
+          <span>
+            <%= data[i].week%>
+              <%= data[i].time_name%>
+          </span>
+        </p>
+        <button class="info" data-id={{ data[i].c_id }}>情况</button>
+      </li>
+      <%}%>
+  </script>
+  <script src="../libs/jquery/jquery.min.js"></script>
+  <script src="../libs/jquery.cookie/jquery.cookie.js"></script>
+  <script src="../libs/art-template/template-web.js"></script>
+  <script src="js/teaIndex.js"></script>
 </body>
+
 </html>
